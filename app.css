@@ -1,3 +1,13 @@
 body {
   padding:10px;
 }
+
+h1 {
+	text-align: center;
+	color: green;
+}
+
+a {
+	margin-left: 45px;
+	margin-right: 45px;
+}

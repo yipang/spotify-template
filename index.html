@@ -18,30 +18,34 @@
 	
 </head>
 <body>
+	<h1>Music Searching</h1>
 	<!-- Initiate app -->
 	<div ng-app="myApp" ng-controller="myCtrl">
 		<!-- Form -->
 		<form class="container" name="songForm">
 			<div class="form-group">
 				<label>Spotify search:</label>
-				<input name="search" placeholder="Enter your search.." ng-model="track" class="form-control"></input>
+				<input name="search" placeholder="Enter your search.." ng-model="track" class="form-control" ng-minlength="3"></input>
+				<p class="help-block" ng-show="songForm.search.$error.minlength">Please enter more than 3 words.</p>
 			</div>
 			<div class="form-group">
-				<button ng-disabled="songForm.search.$invalid" class="btn btn-primary" ng-click="getSongs()" type="submit">Submit</button>
+				<button ng-disabled="songForm.search.$invalid" class="btn btn-primary" ng-click="getSongs()" type="submit">Search Song</button>
+				<button ng-disabled="songForm.search.$invalid" class="btn btn-primary" ng-click="getArtist()" type="submit">Search Artist</button>
 			</div>
 		</form>
 		
 		<!-- Results -->
 		<div class="container-fixed">
+			<a href="#" ng-click="sortType='name'">Sort by name</a>
+			<a href="#" ng-click="sortType='popularity'">Sort by popularity</a>
 			<div class="help-block">
 				<span ng-show="tracks.length>0">Click to sample</span>
 				<span ng-show="currentSong && !audioObject.paused">(playing)</span>
 			</div>
 			<ul>
-				<li ng-repeat="track in tracks" class="" ng-click="play(track.preview_url)" title="{{track.name}}">{{track.name + ', by ' + track.artists[0].name}}</li>
+				<li ng-repeat="track in tracks | orderBy: sortType" class="" ng-click="play(track.preview_url)" title="{{track.name}}">{{track.name + ', by ' + track.artists[0].name}}</li>
 			</ul>			
 		</div>
-	</div>
 	</div>
 </body>
 </html>
