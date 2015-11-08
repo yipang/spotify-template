@@ -30,7 +30,6 @@
 			</div>
 			<div class="form-group">
 				<button ng-disabled="songForm.search.$invalid" class="btn btn-primary" ng-click="getSongs()" type="submit">Search Song</button>
-				<button ng-disabled="songForm.search.$invalid" class="btn btn-primary" ng-click="getArtist()" type="submit">Search Artist</button>
 			</div>
 		</form>
 		
@@ -40,11 +39,18 @@
 			<a href="#" ng-click="sortType='popularity'">Sort by popularity</a>
 			<div class="help-block">
 				<span ng-show="tracks.length>0">Click to sample</span>
-				<span ng-show="currentSong && !audioObject.paused">(playing)</span>
+				<span ng-show="currentSong && !audioObject.paused">(playing)  Click to stop</span>
 			</div>
-			<ul>
-				<li ng-repeat="track in tracks | orderBy: sortType" class="" ng-click="play(track.preview_url)" title="{{track.name}}">{{track.name + ', by ' + track.artists[0].name}}</li>
-			</ul>			
+			<ul id="forTrack">
+				<li ng-repeat="track in tracks | orderBy: sortType" class="" ng-click="play(track.preview_url)" title="{{track.name}}">{{track.name + ', by ' + track.artists[0].name}}
+					<br/>
+					<img ng-click="play(track.preview_url)" title="{{track.name}}" src="{{track.album.images[1].url}}" class="check-element animate-show" ng-hide="checked"></img>
+				</li>
+			</ul>
+			<a href="#" id="toTop">
+				<i class="fa fa-arrow-up fa-3x"></i>
+				<p>back to top</p>
+			</a>	
 		</div>
 	</div>
 </body>
